@@ -17,8 +17,14 @@ def home_view(request):
 
 def questboard_detail_view(request, pk):
 	questboard = Questboard.objects.get(id=pk)
+	quests = Quest.objects.filter(questboard_id=questboard.id)
 	teacher = User.objects.get(id=questboard.creator_id)
-	context = {'questboard': questboard, 'teacher': teacher}
+	context = {
+		'questboard': questboard, 
+		'teacher': teacher, 
+		'quests': quests
+	}
+	
 	return render(request, 'questboard/questboard_detail.html', context)
 	
 	
