@@ -6,7 +6,7 @@
             {% csrf_token %} 
             <fieldset class="form-group">
                 
-                <legend class="border-bottom mb-4 mt-4 p-4"> Sign up for a Storename account.
+                <legend class="border-bottom mb-4 mt-4 p-4"> Sign up for an account.
                 </legend>
                 <div class="container">
                
@@ -42,7 +42,7 @@
         <div class="border-top pt-3">
             <small class="text-muted">Already have an account?
                 
-            <a href="" class="ml-2"> Log in. </a>   
+            <a href="{% url 'login' %}" class="ml-2"> Log in. </a>   
             </small>
         </div>
     </div>

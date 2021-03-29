@@ -20,5 +20,8 @@ from questboard import views as qb_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', qb_views.home_view, name='home'),
     path('signup/', qb_views.signup_view, name='signup'),
+    path('login/', qb_views.login_view, name='login'),
+    path('logout/', qb_views.logout_view, name='logout'),
 ]
