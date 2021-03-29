@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import CreateQuestboardForm, CreateQuestForm
 from .models import Questboard, Quest
+from django.contrib.auth.models import User
+
 
 def home_view(request):
 	questboards = Questboard.objects.all().order_by('-id')
@@ -15,12 +17,16 @@ def home_view(request):
 
 def questboard_detail_view(request, pk):
 	questboard = Questboard.objects.get(id=pk)
-	context = {'questboard': questboard}
+	teacher = User.objects.get(id=questboard.creator_id)
+	context = {'questboard': questboard, 'teacher': teacher}
 	return render(request, 'questboard/questboard_detail.html', context)
 	
 	
 @login_required(login_url='login')
 def create_quest(request, pk):
+	questboard = Questboard.objects.get(id=pk)
+	teacher = User.objects.get(id=questboard.creator_id)
+
 	if request.method == 'POST':
 		form = CreateQuestForm(request.POST)
 		if form.is_valid():
@@ -28,8 +34,8 @@ def create_quest(request, pk):
 	else: 
 		form = CreateQuestForm()
 		
-	context = {'form': form}
-	return render(request, 'questboard/create_quest.html')
+	context = {'form': form, 'questboard': questboard, 'teacher': teacher}
+	return render(request, 'questboard/create_quest.html', context)
 	
 	
 	
