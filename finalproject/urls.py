@@ -24,4 +24,5 @@ urlpatterns = [
     path('signup/', qb_views.signup_view, name='signup'),
     path('login/', qb_views.login_view, name='login'),
     path('logout/', qb_views.logout_view, name='logout'),
+    path('create_questboard/', qb_views.create_questboard, name='create_questboard'),
 ]

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="content-section">
+        <form action="{% url 'create_questboard' %}" class="site-form" method="POST">
+            {% csrf_token %} 
+            <fieldset class="form-group">
+                
+                <legend class="border-bottom mb-4 mt-4 p-4"> Create a questboard
+                </legend>
+                <div class="container">
+               
+                    
+                    {% for field in form %}
+                    <div class="row border-bottom"> 
+                        <div class="col-1 p-3 mt-1">{{ field.label }}</div>
+                        <div class="col-7 p-3 ml-5">{{ field }}</div>
+                    </div> 
+                    {% endfor %}
+                        
+                    {% if form.errors %}
+                    <div class="alert alert-danger row" role="alert">
+                          {{form.errors}}
+                    </div>
+                    {% endif %}
+                    
+                    
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary mt-3 ml-3" type="submit">Submit</button>
+                </div>   
+             
+                
+            </fieldset>   
+     
+        </form>
+    </div>
+
+{% endblock content %}

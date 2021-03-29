@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+# from django.contrib.auth.decorators import login_required
+from .forms import CreateQuestboardForm
 
 
 def home_view(request):
@@ -48,3 +50,17 @@ def logout_view(request):
 
 def teacher_homepage_view(request):
 	return HttpResponse("Teacher homepage.")
+	
+	
+# @login_required('home')
+def create_questboard(request):
+	if request.method == 'POST':
+		form = CreateQuestboardForm(request.POST)
+		if form.is_valid():
+			obj = form.save(commit=False)
+			obj.creator = request.user
+			obj.save()
+			return redirect('home')
+	else: 
+		form = CreateQuestboardForm()
+	return render(request, 'questboard/create_questboard.html', {'form': form})
