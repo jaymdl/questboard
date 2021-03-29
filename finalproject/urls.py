@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from questboard import views as qb_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('signup/', qb_views.signup_view, name='signup'),
 ]

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="content-section">
+        <form action="{% url 'signup' %}" class="site-form" method="POST">
+            {% csrf_token %} 
+            <fieldset class="form-group">
+                
+                <legend class="border-bottom mb-4 mt-4 p-4"> Sign up for a Storename account.
+                </legend>
+                <div class="container">
+               
+                    <div class="row border-bottom">
+                        <div class="col-1 p-3 mt-1"><b>{{form.username.label}}</b></div>
+                        <div class="col-7 p-3 ml-5">{{form.username}}</div>
+                    </div> 
+                    <div class="row border-bottom">
+                        <div class="col-1 p-3 mt-1"><b>{{form.password1.label}}</b></div>
+                        <div class="col-7 p-3 ml-5">{{form.password1}}</div>
+                    </div> 
+                    <div class="row border-bottom">
+                        <div class="col-1 p-3 mt-1"><b>Confirm password</b></div>
+                        <div class="col-7 p-3 ml-5">{{form.password2}}</div>
+                    </div> 
+                        
+                    {% if form.errors %}
+                    <div class="alert alert-danger row" role="alert">
+                          {{form.errors}}
+                    </div>
+                    {% endif %}
+                    
+                    
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary mt-3 ml-3" type="submit">Sign up</button>
+                </div>   
+             
+                
+            </fieldset>   
+     
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">Already have an account?
+                
+            <a href="" class="ml-2"> Log in. </a>   
+            </small>
+        </div>
+    </div>
+
+{% endblock content %}
