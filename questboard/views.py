@@ -5,10 +5,16 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import CreateQuestboardForm
-
+from .models import Questboard, Quest
 
 def home_view(request):
-	return render(request,'questboard/home.html')
+	questboards = Questboard.objects.all().order_by('-id')
+	context = {'questboards': questboards}
+	return render(request,'questboard/home.html', context)
+	
+
+def questboard_detail_view(request, pk):
+	return 
 	
 	
 def signup_view(request):
@@ -46,10 +52,6 @@ def login_view(request):
 def logout_view(request):
 	logout(request)
 	return redirect("home")
-
-
-def teacher_homepage_view(request):
-	return HttpResponse("Teacher homepage.")
 	
 	
 @login_required(login_url='login')

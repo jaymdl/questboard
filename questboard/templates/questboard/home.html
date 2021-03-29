@@ -1,4 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-This is the homepage.
+{% if request.user.is_authenticated %}
+
+Hi, {{ request.user }}! 
+<a type="button" class="btn btn-primary btn-lg btn-block" href="{% url 'create_questboard' %}" type="submit">Create a Questboard.</a>
+<a type="button" class="btn btn-warning btn-lg btn-block">View existing Questboards.</a>
+
+{% for questboard in questboards %}
+<p><a href="">
+{{ questboard.pk }}
+{{ questboard.name }}
+{{ questboard.description }}
+{% endfor %}
+</a></p>
+{% else %}
+
+{% endif %}
+
+
 {% endblock content %}
