@@ -30,13 +30,15 @@ def create_quest(request, pk):
 	if request.method == 'POST':
 		form = CreateQuestForm(request.POST)
 		if form.is_valid():
+			obj = form.save(commit=False)
+			obj.questboard_id = questboard.id
+			obj.save()
 			return redirect('home')
 	else: 
 		form = CreateQuestForm()
 		
 	context = {'form': form, 'questboard': questboard, 'teacher': teacher}
 	return render(request, 'questboard/create_quest.html', context)
-	
 	
 	
 def signup_view(request):

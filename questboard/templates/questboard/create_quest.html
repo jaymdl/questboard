@@ -4,7 +4,7 @@
 {% if request.user.is_authenticated %}
     {% if request.user == teacher %}
     <div class="content-section">
-        <form action="{% url 'create_questboard' %}" class="site-form" method="POST">
+        <form action="{% url 'create_quest' questboard.pk %}" class="site-form" method="POST">
             {% csrf_token %} 
             <fieldset class="form-group">
                 
