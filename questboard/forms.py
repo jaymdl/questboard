@@ -1,5 +1,5 @@
 from django import forms
-from .models import Questboard
+from .models import Questboard, Quest
 
 # class KeyForm(forms.ModelForm):
 # 	class Meta:
@@ -14,4 +14,14 @@ class CreateQuestboardForm(forms.ModelForm):
 			'name': forms.Textarea(attrs={'cols': 60, 'rows': 1}),
 			'description': forms.Textarea(attrs={'cols': 60, 'rows': 4}),
 			'required_stars': forms.Textarea(attrs={'cols': 4, 'rows': 1}),
+		}
+
+class CreateQuestForm(forms.ModelForm):
+	class Meta:
+		model = Quest
+		fields = ['name', 'description', 'stars', 'for_everyone']
+		widgets = {
+			'name': forms.Textarea(attrs={'cols': 60, 'rows': 1}),
+			'description': forms.Textarea(attrs={'cols': 60, 'rows': 4}),
+			'stars': forms.Textarea(attrs={'cols': 4, 'rows': 1}),
 		}

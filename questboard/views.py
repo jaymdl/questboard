@@ -4,22 +4,39 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import CreateQuestboardForm
+from .forms import CreateQuestboardForm, CreateQuestForm
 from .models import Questboard, Quest
 
 def home_view(request):
 	questboards = Questboard.objects.all().order_by('-id')
 	context = {'questboards': questboards}
-	return render(request,'questboard/home.html', context)
-	
+	return render(request, 'questboard/home.html', context)
+
 
 def questboard_detail_view(request, pk):
-	return 
+	questboard = Questboard.objects.get(id=pk)
+	context = {'questboard': questboard}
+	return render(request, 'questboard/questboard_detail.html', context)
+	
+	
+@login_required(login_url='login')
+def create_quest(request, pk):
+	if request.method == 'POST':
+		form = CreateQuestForm(request.POST)
+		if form.is_valid():
+			return redirect('home')
+	else: 
+		form = CreateQuestForm()
+		
+	context = {'form': form}
+	return render(request, 'questboard/create_quest.html')
+	
 	
 	
 def signup_view(request):
 	if request.user.is_authenticated:
 		return redirect("home")
+		
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST)
 		if form.is_valid():
@@ -31,12 +48,14 @@ def signup_view(request):
 			return redirect("home")
 	else:
 		form = UserCreationForm()
+		
 	return render(request, 'questboard/signup.html', {'form': form})
 	
 
 def login_view(request):
 	if request.user.is_authenticated:
 		return redirect("home")
+		
 	if request.method == 'POST':
 		form = AuthenticationForm(data=request.POST)
 		if form.is_valid():
@@ -46,6 +65,7 @@ def login_view(request):
 			return redirect("home")
 	else: 
 		form = AuthenticationForm()
+		
 	return render(request, 'questboard/login.html', {'form': form})
 	
 
@@ -65,4 +85,5 @@ def create_questboard(request):
 			return redirect('home')
 	else: 
 		form = CreateQuestboardForm()
+		
 	return render(request, 'questboard/create_questboard.html', {'form': form})

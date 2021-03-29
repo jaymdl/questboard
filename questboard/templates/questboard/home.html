@@ -4,10 +4,9 @@
 
 Hi, {{ request.user }}! 
 <a type="button" class="btn btn-primary btn-lg btn-block" href="{% url 'create_questboard' %}" type="submit">Create a Questboard.</a>
-<a type="button" class="btn btn-warning btn-lg btn-block">View existing Questboards.</a>
 
 {% for questboard in questboards %}
-<p><a href="">
+<p><a href="{% url 'questboard_detail' questboard.pk %}">
 {{ questboard.pk }}
 {{ questboard.name }}
 {{ questboard.description }}

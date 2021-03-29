@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+{% if request.user.is_authenticated %}
+
+ 
+<a type="button" class="btn btn-primary btn-lg btn-block" href="{% url 'create_quest' questboard.pk %}" type="submit">Create a Quest.</a>
+{{ questboard.pk }}
+{{ questboard.name }}
+{{ questboard.description }}
+
+{% endif %}
+{% endblock content %}
