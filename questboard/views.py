@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
@@ -15,10 +15,13 @@ def home_view(request):
 	return render(request, 'questboard/home.html', context)
 
 
+@login_required(login_url='login')
 def questboard_detail_view(request, pk):
-	questboard = Questboard.objects.get(id=pk)
+	
+	questboard = get_object_or_404(Questboard, id=pk)
 	quests = Quest.objects.filter(questboard_id=questboard.id)
-	teacher = User.objects.get(id=questboard.creator_id)
+	
+	teacher = get_object_or_404(User, id=questboard.creator_id)
 	context = {
 		'questboard': questboard, 
 		'teacher': teacher, 
@@ -29,9 +32,24 @@ def questboard_detail_view(request, pk):
 	
 	
 @login_required(login_url='login')
+def create_questboard(request):
+	if request.method == 'POST':
+		form = CreateQuestboardForm(request.POST)
+		if form.is_valid():
+			obj = form.save(commit=False)
+			obj.creator = request.user
+			obj.save()
+			return redirect('home')
+	else: 
+		form = CreateQuestboardForm()
+		
+	return render(request, 'questboard/create_questboard.html', {'form': form})
+	
+	
+@login_required(login_url='login')
 def create_quest(request, pk):
-	questboard = Questboard.objects.get(id=pk)
-	teacher = User.objects.get(id=questboard.creator_id)
+	questboard = get_object_or_404(Questboard, id=pk)
+	teacher = get_object_or_404(User, id=questboard.creator_id)
 
 	if request.method == 'POST':
 		form = CreateQuestForm(request.POST)
@@ -43,7 +61,12 @@ def create_quest(request, pk):
 	else: 
 		form = CreateQuestForm()
 		
-	context = {'form': form, 'questboard': questboard, 'teacher': teacher}
+	context = {
+		'form': form, 
+		'questboard': questboard, 
+		'teacher': teacher
+	}
+	
 	return render(request, 'questboard/create_quest.html', context)
 	
 	
@@ -88,16 +111,3 @@ def logout_view(request):
 	return redirect("home")
 	
 	
-@login_required(login_url='login')
-def create_questboard(request):
-	if request.method == 'POST':
-		form = CreateQuestboardForm(request.POST)
-		if form.is_valid():
-			obj = form.save(commit=False)
-			obj.creator = request.user
-			obj.save()
-			return redirect('home')
-	else: 
-		form = CreateQuestboardForm()
-		
-	return render(request, 'questboard/create_questboard.html', {'form': form})

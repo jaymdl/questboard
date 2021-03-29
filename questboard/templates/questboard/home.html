@@ -7,7 +7,6 @@ Hi, {{ request.user }}!
 
 {% for questboard in questboards %}
 <p><a href="{% url 'questboard_detail' questboard.pk %}">
-{{ questboard.pk }}
 {{ questboard.name }}
 {{ questboard.description }}
 {% endfor %}
