@@ -27,6 +27,8 @@ def signup_view(request):
 	
 
 def login_view(request):
+	if request.user.is_authenticated:
+		return redirect("home")
 	if request.method == 'POST':
 		form = AuthenticationForm(data=request.POST)
 		if form.is_valid():
@@ -42,3 +44,7 @@ def login_view(request):
 def logout_view(request):
 	logout(request)
 	return redirect("home")
+
+
+def teacher_homepage_view(request):
+	return HttpResponse("Teacher homepage.")
