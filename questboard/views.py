@@ -2,15 +2,16 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
-from django.contrib import messages 
+from django.contrib import messages
 
 
 def home_view(request):
-	
 	return render(request,'questboard/home.html')
 	
 	
 def signup_view(request):
+	if request.user.is_authenticated:
+		return redirect("home")
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST)
 		if form.is_valid():
@@ -20,7 +21,7 @@ def signup_view(request):
 			login(request, user)
 			# log the user in
 			return redirect("home")
-	else: 
+	else:
 		form = UserCreationForm()
 	return render(request, 'questboard/signup.html', {'form': form})
 	
