@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% load crispy_forms_tags %}
 {% if request.user.is_authenticated %}
     <div class="shadow p-5 mb-5 bg-white rounded">
         {% if request.user == teacher %}
@@ -8,7 +9,7 @@
         </div>
         
         <div class="modal fade" id="editQuestboardModal{{ questboard.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Edit Item</h5>
@@ -18,7 +19,7 @@
                   </div>
                   <div class="modal-body">
                     <form method='POST' action="{% url 'update_questboard' questboard.pk %}"> {% csrf_token %}
-                    {{ edit_questboard_form.as_p }}
+                    {{ edit_questboard_form|crispy }}
                     <input type='submit' class="btn btn-primary"" value='Update' />
                     </form>
                   </div>
