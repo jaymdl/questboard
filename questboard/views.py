@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import CreateQuestboardForm, CreateQuestForm, MemberOneForm
+from .forms import CreateQuestboardForm, CreateQuestForm, MemberOneForm, MemberTwoForm, MemberThreeForm
 from .models import Questboard, Quest
 from django.contrib.auth.models import User
 
@@ -40,11 +40,15 @@ def questboard_detail_view(request, pk):
 	quests = Quest.objects.filter(questboard_id=questboard.id)
 	teacher = get_object_or_404(User, id=questboard.creator_id)
 	member_one_form = MemberOneForm()
+	member_two_form = MemberTwoForm()
+	member_three_form = MemberThreeForm()
 	context = {
 		'questboard': questboard, 
 		'teacher': teacher, 
 		'quests': quests,
-		'member_one_form': member_one_form
+		'member_one_form': member_one_form,
+		'member_two_form': member_two_form,
+		'member_three_form': member_three_form
 	}
 	
 	return render(request, 'questboard/questboard_detail.html', context)
@@ -78,6 +82,24 @@ def add_member_one(request, quest_pk):
 	quest = get_object_or_404(Quest, id=quest_pk)
 	if request.method == 'POST':
 		form = MemberOneForm(request.POST, instance=quest)
+		if form.is_valid():
+			form.save()
+	return redirect('questboard_detail', quest.questboard_id)
+	
+
+def add_member_two(request, quest_pk):
+	quest = get_object_or_404(Quest, id=quest_pk)
+	if request.method == 'POST':
+		form = MemberTwoForm(request.POST, instance=quest)
+		if form.is_valid():
+			form.save()
+	return redirect('questboard_detail', quest.questboard_id)
+	
+
+def add_member_three(request, quest_pk):
+	quest = get_object_or_404(Quest, id=quest_pk)
+	if request.method == 'POST':
+		form = MemberThreeForm(request.POST, instance=quest)
 		if form.is_valid():
 			form.save()
 	return redirect('questboard_detail', quest.questboard_id)

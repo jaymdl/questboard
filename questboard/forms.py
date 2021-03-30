@@ -31,3 +31,15 @@ class MemberOneForm(forms.ModelForm):
 	class Meta:
 		model = Quest
 		fields = ['member_one']
+		
+
+class MemberTwoForm(forms.ModelForm):
+	class Meta:
+		model = Quest
+		fields = ['member_two']
+		
+
+class MemberThreeForm(forms.ModelForm):
+	class Meta:
+		model = Quest
+		fields = ['member_three']

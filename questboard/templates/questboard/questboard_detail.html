@@ -35,6 +35,7 @@
                 <p class="card-text"> {{ quest.description }}</p>
               </div>
               {% if not quest.for_everyone %}
+              
               <ul class="list-group list-group-flush">
                 {% if quest.member_one %}
                 <li class="list-group-item">{{ quest.member_one }}</li>
@@ -44,7 +45,29 @@
                 </form>
                 {% endif %}
               </ul>
+              
+              <ul class="list-group list-group-flush">
+                  {% if quest.member_two %}
+                  <li class="list-group-item">{{ quest.member_two }}</li>
+                  {% else %}
+                  <form method="POST" action="{% url 'add_member_two' quest.pk %}"> {% csrf_token %}
+                  <li class="list-group-item d-flex justify-content-between">{{ member_two_form.member_two }} <button type="submit" class="btn btn-warning self-align-start"><small>Join</small></button> </li>
+                  </form>
+                  {% endif %}
+              </ul>
+                
+              <ul class="list-group list-group-flush">
+                    {% if quest.member_three %}
+                    <li class="list-group-item">{{ quest.member_three }}</li>
+                    {% else %}
+                    <form method="POST" action="{% url 'add_member_three' quest.pk %}"> {% csrf_token %}
+                    <li class="list-group-item d-flex justify-content-between">{{ member_three_form.member_three }} <button type="submit" class="btn btn-warning self-align-start"><small>Join</small></button> </li>
+                    </form>
+                    {% endif %}
+              </ul>
+              
               {% else %}
+              
               {% endif %}
               
         </div>
