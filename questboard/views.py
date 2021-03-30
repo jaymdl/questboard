@@ -27,7 +27,8 @@ def create_questboard(request):
 			obj = form.save(commit=False)
 			obj.creator = request.user
 			obj.save()
-			return redirect('home')
+			latest_questboard = Questboard.objects.last()
+			return redirect('questboard_detail', latest_questboard.id)
 	else: 
 		form = CreateQuestboardForm()
 		

@@ -38,7 +38,13 @@
         </form>
     </div>
     {% else %}
-    Oops! The Questboard you want to make a quest for either doesn't exist or belongs to a different teacher.
+    <div class="shadow p-5 mb-5 bg-white rounded">
+    <h1 class="display-6"> Oops! </h1>
+    <p class="lead">
+          The Questboard you want to make a quest for either doesn't exist or belongs to a different teacher.
+    </p>
+    </div>
+  
     {% endif %}
 {% endif %}
 {% endblock content %}
