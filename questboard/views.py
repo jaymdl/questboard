@@ -182,12 +182,4 @@ def login_view(request):
 def logout_view(request):
 	logout(request)
 	return redirect("home")
-	
 
-# def get_star_string(star_count):
-# 	star_string = ""
-# 	for i in range(1, star_count + 1):
-# 		star_string += "X"
-# 	return star_string
-# 	
-	

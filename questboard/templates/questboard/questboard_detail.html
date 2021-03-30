@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load crispy_forms_tags %}
+{% load fullurl %}
 {% if request.user.is_authenticated %}
     <div class="shadow p-5 mb-5 bg-white rounded">
         {% if request.user == teacher %}
@@ -38,10 +39,53 @@
               <dt class="col-sm-6 mt-5">Required number of stars to fulfill this course: </dt>
               <dd class="col-sm-6 mt-5"> {{ questboard.required_stars }} stars</dd> 
         </dl>
+        <div class="form-group row mt-3">
+              <div class="col-xs-1">
+                <input type="text" class="form-control ml-3 mr-5 align-self-center" value="{% fullurl 'questboard_detail' questboard.pk %}" id="myInput" readonly="readonly">
+              </div>
+              <div class="col-xs-2">
+                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </div>
+                
+              <div class="col-xs-3">
+                  <button class="btn btn-sm btn-info align-self-center" onclick="myFunction()">
+                
+                      
+                 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-link-45deg" viewBox="0 0 16 16">
+                            <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                            <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
+                      </svg>
+                     
+                  </button>
+              </div>
+             
+        </div>
+        
+           
+
+     
+        <script>
+        function myFunction() {
+              /* Get the text field */
+              var copyText = document.getElementById("myInput");
+            
+              /* Select the text field */
+              copyText.select();
+              copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            
+              /* Copy the text inside the text field */
+              document.execCommand("copy");
+            
+              /* Alert the copied text */
+              alert("Link copied");
+            }
+        </script>
+        
     </div>
     {% if request.user == teacher %}
     <div class="mb-5">
-        <a type="button" class="btn btn-primary btn-lg btn-block" href="{% url 'create_quest' questboard.pk %}" type="submit">Create a Quest.</a>
+        <a type="button" class="btn btn-info btn-lg btn-block" href="{% url 'create_quest' questboard.pk %}" type="submit">Create a Quest.</a>
     </div>
     {% endif %}
     
