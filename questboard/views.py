@@ -10,17 +10,19 @@ from django.contrib.auth.models import User
 
 
 def home_view(request):
-	questboards = Questboard.objects.all().order_by('-id')
+	questboards = (
+		Questboard.objects.all()
+		.order_by('-id')
+		.select_related("creator")
+	)
 	context = {'questboards': questboards}
 	return render(request, 'questboard/home.html', context)
 
 
 @login_required(login_url='login')
 def questboard_detail_view(request, pk):
-	
 	questboard = get_object_or_404(Questboard, id=pk)
 	quests = Quest.objects.filter(questboard_id=questboard.id)
-	
 	teacher = get_object_or_404(User, id=questboard.creator_id)
 	context = {
 		'questboard': questboard, 
