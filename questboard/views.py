@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import CreateQuestboardForm, CreateQuestForm
+from .forms import CreateQuestboardForm, CreateQuestForm, MemberOneForm
 from .models import Questboard, Quest
 from django.contrib.auth.models import User
 
@@ -20,20 +20,6 @@ def home_view(request):
 
 
 @login_required(login_url='login')
-def questboard_detail_view(request, pk):
-	questboard = get_object_or_404(Questboard, id=pk)
-	quests = Quest.objects.filter(questboard_id=questboard.id)
-	teacher = get_object_or_404(User, id=questboard.creator_id)
-	context = {
-		'questboard': questboard, 
-		'teacher': teacher, 
-		'quests': quests
-	}
-	
-	return render(request, 'questboard/questboard_detail.html', context)
-	
-	
-@login_required(login_url='login')
 def create_questboard(request):
 	if request.method == 'POST':
 		form = CreateQuestboardForm(request.POST)
@@ -46,6 +32,22 @@ def create_questboard(request):
 		form = CreateQuestboardForm()
 		
 	return render(request, 'questboard/create_questboard.html', {'form': form})
+
+
+@login_required(login_url='login')
+def questboard_detail_view(request, pk):
+	questboard = get_object_or_404(Questboard, id=pk)
+	quests = Quest.objects.filter(questboard_id=questboard.id)
+	teacher = get_object_or_404(User, id=questboard.creator_id)
+	member_one_form = MemberOneForm()
+	context = {
+		'questboard': questboard, 
+		'teacher': teacher, 
+		'quests': quests,
+		'member_one_form': member_one_form
+	}
+	
+	return render(request, 'questboard/questboard_detail.html', context)
 	
 	
 @login_required(login_url='login')
@@ -70,7 +72,11 @@ def create_quest(request, pk):
 	}
 	
 	return render(request, 'questboard/create_quest.html', context)
-	
+
+
+def add_member_one(request, questboard_pk, quest_pk):
+	string = "The questboard pk = " + str(questboard_pk) + "the quest_pk is " +  str(quest_pk)
+	return HttpResponse(string)
 	
 def signup_view(request):
 	if request.user.is_authenticated:
@@ -111,5 +117,7 @@ def login_view(request):
 def logout_view(request):
 	logout(request)
 	return redirect("home")
+	
+
 	
 	

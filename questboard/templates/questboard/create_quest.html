@@ -3,12 +3,12 @@
 {% block content %}
 {% if request.user.is_authenticated %}
     {% if request.user == teacher %}
-    <div class="content-section">
+    <div class="content-section shadow p-3 mb-5 bg-white rounded">
         <form action="{% url 'create_quest' questboard.pk %}" class="site-form" method="POST">
             {% csrf_token %} 
             <fieldset class="form-group">
                 
-                <legend class="border-bottom mb-4 mt-4 p-4"> Create a quest.
+                <legend class="border-bottom mb-4 mt-4 p-4"> <h1>Create a quest.</h1>
                 </legend>
                 <div class="container">
                

@@ -25,3 +25,9 @@ class CreateQuestForm(forms.ModelForm):
 			'description': forms.Textarea(attrs={'cols': 60, 'rows': 4}),
 			'stars': forms.Textarea(attrs={'cols': 4, 'rows': 1}),
 		}
+
+
+class MemberOneForm(forms.ModelForm):
+	class Meta:
+		model = Quest
+		fields = ['member_one']

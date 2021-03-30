@@ -27,5 +27,6 @@ urlpatterns = [
     path('create_questboard/', qb_views.create_questboard, name='create_questboard'),
     path('questboard_detail/<str:pk>', qb_views.questboard_detail_view, name='questboard_detail'),
     path('create_quest/<str:pk>', qb_views.create_quest, name='create_quest'),
+    path('add_member_one/<str:questboard_pk>/<str:quest_pk>', qb_views.add_member_one, name='add_member_one'),
     
 ]
