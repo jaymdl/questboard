@@ -59,7 +59,7 @@ def create_quest(request, pk):
 			obj = form.save(commit=False)
 			obj.questboard_id = questboard.id
 			obj.save()
-			return redirect('home')
+			return redirect('questboard_detail', pk)
 	else: 
 		form = CreateQuestForm()
 		
