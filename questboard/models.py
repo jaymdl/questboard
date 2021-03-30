@@ -22,3 +22,12 @@ class Quest(models.Model):
 	member_two = models.CharField(max_length=50)
 	member_three = models.CharField(max_length=50)
 	questboard = models.ForeignKey(Questboard, on_delete=models.CASCADE)
+	
+	def get_star_string(self):
+		stars = self.stars
+		star_string = ""
+		for x in range(1, (stars + 1)):
+			star_string += "*"
+		return star_string
+
+			
