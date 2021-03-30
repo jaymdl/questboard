@@ -35,10 +35,14 @@
         <p class="lead mt-3">
               {{ questboard.description }}
         </p>
-        <dl class="row">
-              <dt class="col-sm-6 mt-5">Required number of stars to fulfill this course: </dt>
-              <dd class="col-sm-6 mt-5"> {{ questboard.required_stars }} stars</dd> 
-        </dl>
+        <div class="mt-5">
+            <dl class="row">
+                  <dt class="col-sm-6 mt-2">Required number of stars to fulfill this course: </dt>
+                  <dd class="col-sm-6 mt-2"> {{ questboard.required_stars }} stars</dd> 
+                  <dt class="col-sm-6 mt-2">Course Instructor: </dt>
+                  <dd class="col-sm-6 mt-2"> {{ teacher.username }} </dd> 
+            </dl>
+        </div>
         <div class="form-group row mt-3">
               <div class="col-xs-1">
                 <input type="text" class="form-control ml-3 mr-5 align-self-center" value="{% fullurl 'questboard_detail' questboard.pk %}" id="myInput" readonly="readonly">
@@ -48,7 +52,7 @@
               </div>
                 
               <div class="col-xs-3">
-                  <button class="btn btn-sm btn-info align-self-center" onclick="myFunction()">
+                  <button class="btn btn-sm btn-dark align-self-center" onclick="myFunction()">
                 
                       
                  
@@ -94,7 +98,7 @@
     <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
         <div class="card shadow p-1 mx-3 mb-5 bg-white rounded h-100" style="width: 20rem;">
               <div class="card-body">
-                {% if request.user == teacher and not quest.member_one and not quest.member_two and not quest.member_three or quest.for_everyone %}
+                {% if request.user == teacher and not quest.member_one and not quest.member_two and not quest.member_three %}
                   <div class="mb-2">
                       <a href="{% url 'update_quest' quest.pk %}" class="badge badge-info"">Edit</a>
                   </div>

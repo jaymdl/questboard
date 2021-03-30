@@ -2,7 +2,8 @@
 {% load crispy_forms_tags %}
 {% block content %}
 {% if request.user.is_authenticated %}
-    {% if request.user == teacher and not quest.member_one and not quest.member_two and not quest.member_three or quest.for_everyone %}
+    {% if request.user == teacher and not quest.member_one and not quest.member_two and not quest.member_three %}
+    
     <div class="content-section shadow p-3 mb-5 bg-white rounded">
         <form action="{% url 'update_quest' quest.pk %}" class="site-form" method="POST">
             {% csrf_token %} 
@@ -30,8 +31,8 @@
     {% else %}
     <div class="shadow p-5 mb-5 bg-white rounded">
     <h1 class="display-6"> Oops! </h1>
-    <p class="lead">
-          This quest cannot be edited.
+    <p class="lead mt-4">
+          You can't edit this quest. :(
     </p>
     </div>
   
