@@ -1,13 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
 {% if request.user.is_authenticated %}
-
+    <div class="shadow p-3 mb-5 bg-white rounded">
+        <small class="text-muted">Questboard</small>
+        <h1 class="display-6">  {{ questboard.name }} </h1>
+        <p class="lead">
+              {{ questboard.description }}
+        </p>
+        <dl class="row">
+              <dt class="col-sm-3">Description lists</dt>
+              <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+            
+              <dt class="col-sm-3">Euismod</dt>
+              <dd class="col-sm-9">
+                <p>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</p>
+                <p>Donec id elit non mi porta gravida at eget metus.</p>
+              </dd>
+            
+              
+            </dl>
+    </div>
     {% if request.user == teacher %}
-    <a type="button" class="btn btn-primary btn-lg btn-block" href="{% url 'create_quest' questboard.pk %}" type="submit">Create a Quest.</a>
+        <a type="button" class="btn btn-primary btn-lg btn-block" href="{% url 'create_quest' questboard.pk %}" type="submit">Create a Quest.</a>
     {% endif %}
+    
     {{ questboard.pk }}
     {{ questboard.name }}
-    {{ questboard.description }}
+   
     {{ teacher.username }}
 
     List of quests:
@@ -24,6 +43,4 @@
     
     
 {% endif %}
-
-
 {% endblock content %}

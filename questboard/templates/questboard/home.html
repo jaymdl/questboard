@@ -4,7 +4,7 @@
 
 <h3>Hi, {{ request.user }}! </h3>
 <div class="my-5">
-<a type="button" class="btn btn-primary btn-lg btn-block" href="{% url 'create_questboard' %}" type="submit">Create a Questboard.</a>
+<a type="button" class="btn btn-primary btn-lg btn-block shadow-none p-3 mb-5 rounded" href="{% url 'create_questboard' %}" type="submit">Create a Questboard.</a>
 </div>
 
 <div class="mb-5">
@@ -13,11 +13,13 @@
 <div class="mt-3 inline">
 	
 	{% for questboard in questboards %}
-	<div class="mb-5">
-	<p><h2 class="display-6">Course:
+	
+	<div class="mb-5 shadow p-3 mb-5 bg-white rounded">
+	<small class="text-muted">Course</small>
+	<p><h2 class="display-6">
 	<a href="{% url 'questboard_detail' questboard.pk %}">
 	{{ questboard.name }}</h2> 
-	</a>Instructor: {{ questboard.creator.username }}
+	</a><b>Instructor:</b> {{ questboard.creator.username }}
 	</p>
 	</div>
 	{% endfor %}
