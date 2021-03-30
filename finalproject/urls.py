@@ -30,5 +30,6 @@ urlpatterns = [
     path('add_member_one/<str:quest_pk>', qb_views.add_member_one, name='add_member_one'),
     path('add_member_two/<str:quest_pk>', qb_views.add_member_two, name='add_member_two'),
     path('add_member_three/<str:quest_pk>', qb_views.add_member_three, name='add_member_three'),
+    path('update_questboard/<str:pk>', qb_views.update_questboard, name='update_questboard'),
     
 ]
