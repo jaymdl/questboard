@@ -2,15 +2,27 @@
 {% block content %}
 {% if request.user.is_authenticated %}
 
-Hi, {{ request.user }}! 
+<h3>Hi, {{ request.user }}! </h3>
+<div class="my-5">
 <a type="button" class="btn btn-primary btn-lg btn-block" href="{% url 'create_questboard' %}" type="submit">Create a Questboard.</a>
+</div>
 
-{% for questboard in questboards %}
-<p><a href="{% url 'questboard_detail' questboard.pk %}">
-{{ questboard.name }}
-{{ questboard.description }}
-{% endfor %}
-</a></p>
+<div class="mb-5">
+	<h1>Latest Questboards.</h1>
+</div>
+<div class="mt-3 inline">
+	
+	{% for questboard in questboards %}
+	<div class="mb-5">
+	<p><h2 class="display-6">Course:
+	<a href="{% url 'questboard_detail' questboard.pk %}">
+	{{ questboard.name }}</h2> 
+	</a>Instructor: {{ questboard.creator.username }}
+	</p>
+	</div>
+	{% endfor %}
+	
+</div>
 {% else %}
 
 {% endif %}
