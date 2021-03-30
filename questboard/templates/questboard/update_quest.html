@@ -2,13 +2,13 @@
 {% load crispy_forms_tags %}
 {% block content %}
 {% if request.user.is_authenticated %}
-    {% if request.user == teacher %}
+    {% if request.user == teacher and not quest.member_one and not quest.member_two and not quest.member_three or quest.for_everyone %}
     <div class="content-section shadow p-3 mb-5 bg-white rounded">
-        <form action="{% url 'create_quest' questboard.pk %}" class="site-form" method="POST">
+        <form action="{% url 'update_quest' quest.pk %}" class="site-form" method="POST">
             {% csrf_token %} 
             <fieldset class="form-group">
                 
-                <legend class="border-bottom mb-4 mt-4 p-4"> <h1>Create a quest.</h1>
+                <legend class="border-bottom mb-4 mt-4 p-4"> <h1>Edit quest.</h1>
                 </legend>
                 <div class="container">
                
@@ -31,7 +31,7 @@
     <div class="shadow p-5 mb-5 bg-white rounded">
     <h1 class="display-6"> Oops! </h1>
     <p class="lead">
-          The Questboard you want to make a quest for either doesn't exist or belongs to a different teacher.
+          This quest cannot be edited.
     </p>
     </div>
   

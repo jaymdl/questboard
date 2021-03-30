@@ -58,8 +58,20 @@
     <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
         <div class="card shadow p-1 mx-3 mb-5 bg-white rounded h-100" style="width: 20rem;">
               <div class="card-body">
+                {% if request.user == teacher and not quest.member_one and not quest.member_two and not quest.member_three or quest.for_everyone %}
+                  <div class="mb-2">
+                      <a href="{% url 'update_quest' quest.pk %}" class="badge badge-info"">Edit</a>
+                  </div>
+                  
+        
+                  
+                  
+                  
+                {% endif %}
                 <h5 class="card-title">{{ quest.name }}</h5>
                 <p class="card-text"> {{ quest.description }}</p>
+                
+               
               </div>
               
               {% if not quest.for_everyone %}

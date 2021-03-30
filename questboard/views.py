@@ -46,6 +46,28 @@ def update_questboard(request, pk):
 
 
 @login_required(login_url='login')
+def update_quest(request, pk):
+	quest = get_object_or_404(Quest, id=pk)
+	questboard = get_object_or_404(Questboard, id=quest.questboard_id)
+	teacher = get_object_or_404(User, id=questboard.creator_id)
+	
+	if request.method == 'POST':
+		form = CreateQuestForm(request.POST, instance=quest)
+		if form.is_valid():
+			form.save()
+			return redirect('questboard_detail', questboard.id)
+	else:
+		form = CreateQuestForm(instance=quest)
+	context = {
+		'form': form,
+		'quest': quest,
+		'teacher': teacher
+	}
+
+	return render(request, 'questboard/update_quest.html', context)
+
+
+@login_required(login_url='login')
 def questboard_detail_view(request, pk):
 	questboard = get_object_or_404(Questboard, id=pk)
 	quests = Quest.objects.filter(questboard_id=questboard.id)
@@ -55,12 +77,8 @@ def questboard_detail_view(request, pk):
 	member_two_form = MemberTwoForm()
 	member_three_form = MemberThreeForm()
 	
-	# initial_data = {
-	# 		'name': questboard.name,
-	# 		'description': questboard.description
-	# 		'required_stars': questboard.required_stars
-	# 	}
 	edit_questboard_form = CreateQuestboardForm(instance=questboard)
+	edit_quest_form = CreateQuestForm()
 	context = {
 		'questboard': questboard, 
 		'teacher': teacher, 

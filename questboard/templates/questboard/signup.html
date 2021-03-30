@@ -1,7 +1,8 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
+<div class="h-100 row align-items-center">
+    <div class="content-section shadow p-3 mb-5 bg-white rounded h-100" style="max-width: 640px">
         <form action="{% url 'signup' %}" class="site-form" method="POST">
             {% csrf_token %} 
             <fieldset class="form-group">
@@ -10,24 +11,7 @@
                 </legend>
                 <div class="container">
                
-                    <div class="row border-bottom">
-                        <div class="col-1 p-3 mt-1"><b>{{form.username.label}}</b></div>
-                        <div class="col-7 p-3 ml-5">{{form.username}}</div>
-                    </div> 
-                    <div class="row border-bottom">
-                        <div class="col-1 p-3 mt-1"><b>{{form.password1.label}}</b></div>
-                        <div class="col-7 p-3 ml-5">{{form.password1}}</div>
-                    </div> 
-                    <div class="row border-bottom">
-                        <div class="col-1 p-3 mt-1"><b>Confirm password</b></div>
-                        <div class="col-7 p-3 ml-5">{{form.password2}}</div>
-                    </div> 
-                        
-                    {% if form.errors %}
-                    <div class="alert alert-danger row" role="alert">
-                          {{form.errors}}
-                    </div>
-                    {% endif %}
+                    {{ form|crispy }}
                     
                     
                 </div>
@@ -46,5 +30,5 @@
             </small>
         </div>
     </div>
-
+</div>
 {% endblock content %}
