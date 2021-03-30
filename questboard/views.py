@@ -74,9 +74,14 @@ def create_quest(request, pk):
 	return render(request, 'questboard/create_quest.html', context)
 
 
-def add_member_one(request, questboard_pk, quest_pk):
-	string = "The questboard pk = " + str(questboard_pk) + "the quest_pk is " +  str(quest_pk)
-	return HttpResponse(string)
+def add_member_one(request, quest_pk):
+	quest = get_object_or_404(Quest, id=quest_pk)
+	if request.method == 'POST':
+		form = MemberOneForm(request.POST, instance=quest)
+		if form.is_valid():
+			form.save()
+	return redirect('questboard_detail', quest.questboard_id)
+	
 	
 def signup_view(request):
 	if request.user.is_authenticated:

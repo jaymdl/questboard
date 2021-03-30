@@ -34,15 +34,19 @@
                 <h5 class="card-title">{{ quest.name }}</h5>
                 <p class="card-text"> {{ quest.description }}</p>
               </div>
+              {% if not quest.for_everyone %}
               <ul class="list-group list-group-flush">
-                <form method="POST" action="{% url 'add_member_one' questboard.pk quest.pk %}"> {% csrf_token %}
+                {% if quest.member_one %}
+                <li class="list-group-item">{{ quest.member_one }}</li>
+                {% else %}
+                <form method="POST" action="{% url 'add_member_one' quest.pk %}"> {% csrf_token %}
                 <li class="list-group-item d-flex justify-content-between">{{ member_one_form.member_one }} <button type="submit" class="btn btn-warning self-align-start"><small>Join</small></button> </li>
                 </form>
-                
-                
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
+                {% endif %}
               </ul>
+              {% else %}
+              {% endif %}
+              
         </div>
     </div>
     {% endfor %}
