@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
 {% if request.user.is_authenticated %}
 
 <h3>Hi, {{ request.user }}! </h3>
 <div class="my-5">
-<a type="button" class="btn btn-primary btn-lg btn-block shadow-none p-3 mb-5 rounded" href="{% url 'create_questboard' %}" type="submit">Create a Questboard.</a>
+<a type="button" class="btn btn-info text-white btn-lg btn-block shadow-none p-3 mb-5 rounded" href="{% url 'create_questboard' %}" type="submit">Create a Questboard</a>
 </div>
 
 <div class="mb-5">
@@ -14,10 +15,10 @@
 	
 	{% for questboard in questboards %}
 	
-	<div class="mb-5 shadow p-3 mb-5 bg-white rounded">
-	<small class="text-muted">Course</small>
+	<div class="mb-5 shadow p-3 mb-5 bg-white rounded" data-aos="fade-up" data-aos-duration="900">
+	<small class="text-warning">Course</small>
 	<p><h2 class="display-6">
-	<a href="{% url 'questboard_detail' questboard.pk %}">
+	<a class="text-info" href="{% url 'questboard_detail' questboard.pk %}">
 	{{ questboard.name }}</h2> 
 	</a><b>Instructor:</b> {{ questboard.creator.username }}
 	</p>
@@ -26,7 +27,277 @@
 	
 </div>
 {% else %}
-PLEASE LOGIN 
+<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+<div class="row" id="bannerpicrow">
+	<div class="align-self-right col" id="svg3" style="background-color: white">
+		<object type="image/svg+xml" data="{% static 'images/scene7.svg' %}">Your browser does not support SVGs</object>
+	</div>
+	<div class="align-self-right col" id="svg3" style="background-color: white">
+		<object type="image/svg+xml" data="{% static 'images/scene9.svg' %}">Your browser does not support SVGs</object>
+	</div>
+</div>
+<div class="shadow-lg p-4 my-5 bg-warning rounded"id="text-row" data-aos="fade-up">
+	<h1 class="bannermessage text-white">Make classwork collaboration</h1>
+	<h1 class="bannermessage text-white">more fun.</h1>
+	<h1 class="signupmessage mt-4"><a class="text-dark nounderline cool-link" href="{% url 'signup' %}">Sign up =></a></h1>
+</div>
+
+
+
+<!--<div class="container" class="examplebody">-->
+		
+		
+
+
+<div id="questboardrow">
+	<div class="shadow p-5 mb-5 bg-white rounded" id="questboardcard" data-aos="fade-up" data-aos-duration="3000">
+		
+		<div class="mb-5">
+			<a href="#" class="badge badge-dark" data-toggle="modal" data-target="">Edit</a>
+		</div>
+		
+		
+		<small class="d-flex self-align-center">Questboard </small>
+		<h1 class="display-6">  Intro to Filipino History </h1>
+		<p class="lead mt-3">
+			  The deadline for all quests is subject to change.
+		</p>
+		<div class="mt-5">
+			<dl class="row">
+				  <dt class="col-sm-6 mt-2">Required number of stars to fulfill this course: </dt>
+				  <dd class="col-sm-6 mt-2"> 11 stars</dd> 
+				  <dt class="col-sm-6 mt-2">Course Instructor: </dt>
+				  <dd class="col-sm-6 mt-2"> mariaclara </dd> 
+			</dl>
+		</div>
+		<div class="form-group row mt-3">
+			  <div class="col-xs-1">
+				<input type="text" class="form-control ml-3 mr-5 align-self-center" value="http://qb.io/questboard_detail/11" id="myInput" readonly="readonly">
+			  </div>
+			  <div class="col-xs-2">
+						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			  </div>
+				
+			  <div class="col-xs-3">
+				  <button class="btn btn-sm btn-dark align-self-center" onclick="myFunction()">
+				
+					  
+				 
+					  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-link-45deg" viewBox="0 0 16 16">
+							<path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path>
+							<path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path>
+					  </svg>
+					 
+				  </button>
+			  </div>
+			 
+		</div>
+		
+		   
+
+	
+		
+	</div>
+</div>
+	
+<div id="questsrowdiv">
+	<div class="row mt-3" id="questsrow">
+	
+	<div class="col-lg-4 col-md-6 col-sm-12 mb-5" id="questone" data-aos="fade-up" data-aos-duration="2500">
+		<div class="card shadow p-1 mb-5 bg-white rounded h-100" style="width: 20rem;">
+			  <div class="card-body">
+				
+				
+				
+				
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f5b342" class="bi bi-star-fill" viewBox="0 0 16 16">
+						  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+					</svg>
+				
+				<h5 class="card-title mt-3">Baybayin - logo design</h5>
+				<p class="card-text"> Convert a popular logo design into Baybayin</p>
+				
+			   
+			  </div>
+			  
+			  
+			  <h6 class="card-subtitle mb-2 align-self-center text-muted">DIBS</h6>
+			  <ul class="list-group list-group-flush">
+				
+				<form method="POST" action=""> <input type="hidden">
+					<li class="list-group-item d-flex justify-content-between"><input type="text" name="" maxlength="50" required="" id=""> 
+						<button type="button" class="btn btn-warning self-align-start" data-toggle="modal" data-target="">
+							<small>Join</small>
+						</button> 
+					</li>
+					
+	
+				
+				
+				</form>
+				
+			  </ul>
+			  
+			  
+			  
+			  <ul class="list-group list-group-flush">
+				  
+				  <li class="list-group-item">Fernando Amorsolo</li>
+				  
+			  </ul>
+				
+			  <ul class="list-group list-group-flush">
+					
+					  <form method="POST" action=""> <input type="hidden">
+						  <li class="list-group-item d-flex justify-content-between"><input type="text" name="" maxlength="50" required="" id=""> 
+							  <button type="button" class="btn btn-warning self-align-start" data-toggle="modal" data-target="">
+								  <small>Join</small>
+							  </button> 
+						  </li>
+						  
+						  
+					  
+					  
+					  </form>
+					  
+			  </ul>
+			  
+			  
+			  
+		</div>
+	</div>
+	
+	<div class="col-lg-4 col-md-6 col-sm-12 mb-5" id="questtwo" data-aos="fade-up" data-aos-duration="2100">
+		<div class="card shadow p-1 mb-5 bg-white rounded h-100" style="width: 20rem;">
+			  <div class="card-body">
+				
+				  <div class="mb-2">
+					  <a href="" class="badge badge-info" "="">Edit</a>
+				  </div>
+				  
+		
+				  
+				  
+				  
+				
+				
+				
+				
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f5b342" class="bi bi-star-fill" viewBox="0 0 16 16">
+						  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+					</svg>
+				
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f5b342" class="bi bi-star-fill" viewBox="0 0 16 16">
+						  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+					</svg>
+				
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f5b342" class="bi bi-star-fill" viewBox="0 0 16 16">
+						  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+					</svg>
+				
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f5b342" class="bi bi-star-fill" viewBox="0 0 16 16">
+						  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+					</svg>
+				
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f5b342" class="bi bi-star-fill" viewBox="0 0 16 16">
+						  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+					</svg>
+				
+				<h5 class="card-title mt-3">Manila Cathedral video tour</h5>
+				<p class="card-text"> Shoot an informative vid on the cathedral's history. Bonus points if an interview is included.</p>
+				
+			   
+			  </div>
+			  
+			  
+			  <ul class="list-group list-group-flush">
+				  <li class="list-group-item"> <b>This quest is for everyone</b></li>
+			  </ul>
+			  
+			  
+		</div>
+	</div>
+	
+	<div class="col-lg-4 col-md-6 col-sm-12 mb-5" id="questthree" data-aos="fade-up" data-aos-duration="1900">
+		<div class="card shadow p-1 mb-5 bg-white rounded h-100" style="width: 20rem;">
+			  <div class="card-body">
+				
+				
+				
+				
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f5b342" class="bi bi-star-fill" viewBox="0 0 16 16">
+						  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+					</svg>
+				
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f5b342" class="bi bi-star-fill" viewBox="0 0 16 16">
+						  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+					</svg>
+				
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f5b342" class="bi bi-star-fill" viewBox="0 0 16 16">
+						  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+					</svg>
+				
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f5b342" class="bi bi-star-fill" viewBox="0 0 16 16">
+						  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"></path>
+					</svg>
+				
+				<h5 class="card-title mt-3">Noli Me Tangere - book report</h5>
+				<p class="card-text"> Discuss how Rizal's novel reflected the historical realities of his time. 2 pages max</p>
+				
+			   
+			  </div>
+			  
+			  
+			  <h6 class="card-subtitle mb-2 align-self-center text-muted">DIBS</h6>
+			  <ul class="list-group list-group-flush">
+				
+				<li class="list-group-item">Teodoro Agoncillo</li>
+				
+			  </ul>
+			  
+			  
+			  
+			  <ul class="list-group list-group-flush">
+				  
+				  <form method="POST" action=""> <input type="hidden">
+					  <li class="list-group-item d-flex justify-content-between"><input type="text" name="" maxlength="50" required="" id=""> 
+						  <button type="button" class="btn btn-warning self-align-start" data-toggle="modal" data-target="">
+							  <small>Join</small>
+						  </button> 
+					  </li>
+					  
+					  
+				  
+				  
+				  </form>
+				  
+			  </ul>
+				
+			  <ul class="list-group list-group-flush">
+					
+					  <li class="list-group-item">Nicolas Zafra</li>
+					  
+			  </ul>
+			  
+			  
+			  
+		</div>
+	</div>
+	
+	</div>
+</div>
+
+
+<div class="row" id="gradpicrow">
+	
+	<div class="" id="svg1" style="background-color: white">
+		<object type="image/svg+xml" data="{% static 'images/scene2.svg' %}">Your browser does not support SVGs</object>
+	</div>
+
+</div>
+
+</div>
+
 {% endif %}
 
 

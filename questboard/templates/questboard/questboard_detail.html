@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 {% load fullurl %}
 {% if request.user.is_authenticated %}
-    <div class="shadow p-5 mb-5 bg-white rounded">
+    <div class="shadow p-5 mb-5 bg-white rounded" data-aos="fade-up" data-aos-duration="900">
         {% if request.user == teacher %}
         <div class="mb-5">
             <a href="#" class="badge badge-dark" data-toggle="modal" data-target="#editQuestboardModal{{ questboard.pk }}">Edit</a>
@@ -88,15 +88,15 @@
         
     </div>
     {% if request.user == teacher %}
-    <div class="mb-5">
-        <a type="button" class="btn btn-info btn-lg btn-block" href="{% url 'create_quest' questboard.pk %}" type="submit">Create a Quest.</a>
+    <div class="mb-5" data-aos="fade-up" data-aos-duration="900">
+        <a type="button" class="btn btn-primary btn-lg btn-block" href="{% url 'create_quest' questboard.pk %}" type="submit">Create a Quest.</a>
     </div>
     {% endif %}
     
     <div class ="row mt-3">
     {% for quest in quests %}
-    <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
-        <div class="card shadow p-1 mx-3 mb-5 bg-white rounded h-100" style="width: 20rem;">
+    <div class="col-lg-4 col-md-6 col-sm-12 mb-5" data-aos="fade-up" data-aos-duration="1000">
+        <div class="card shadow p-1 mb-5 bg-white rounded h-100" style="width: 20rem;">
               <div class="card-body">
                 {% if request.user == teacher and not quest.member_one and not quest.member_two and not quest.member_three %}
                   <div class="mb-2">
@@ -122,7 +122,7 @@
               </div>
               
               {% if not quest.for_everyone %}
-              
+              <h6 class="card-subtitle mb-2 align-self-center text-muted">DIBS</h6>
               <ul class="list-group list-group-flush">
                 {% if quest.member_one %}
                 <li class="list-group-item">{{ quest.member_one }}</li>
@@ -232,7 +232,7 @@
               
               {% else %}
               <ul class="list-group list-group-flush">
-                  <li class="list-group-item"> This quest is for everyone</li>
+                  <li class="list-group-item"> <b>This quest is for everyone</b></li>
               </ul>
               {% endif %}
               

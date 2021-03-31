@@ -1,8 +1,29 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
-<div class="h-100 row align-items-center">
-    <div class="content-section shadow p-3 mb-5 bg-white rounded h-100" style="max-width: 640px">
+<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+<style type="text/css">
+    .shadow:hover{
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0,   0.19);
+    }
+    
+    body{
+        height: 100vh;
+        width: 100vh;
+        background-image: url('{% static 'images/scene5.svg' %}');
+        background-image: contain;
+        background-position-x: 430px;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    
+    #mainbody{
+        width: 600px;
+    }
+</style>
+<div class="h-100 row align-items-center m-5">
+    <div class="content-section ml-5 shadow p-3 mb-5 bg-white rounded h-100" style="max-width: 640px">
         <form action="{% url 'signup' %}" class="site-form" method="POST">
             {% csrf_token %} 
             <fieldset class="form-group">
